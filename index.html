@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Percentage</title>
+    <style>
+        body
+        {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+  width: 50%;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="number"] {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  height: 40px;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+#result {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+    <div class="container" style="border: 2px solid;">
+        <h1>Exam Percentage Calculator</h1>
+        <form id="cal-form">
+            <label for="obtain-marks">Obtain Marks:</label>
+            <input type="number" id="obtain-marks" name="obtain-marks" required>
+            <br>
+            <label for="total-marks">Total Marks:</label>
+            <input type="number" id="total-marks" name="total-marks" required>
+            <br><br>
+            <button type="submit">Calculate</button>
+        </form>
+        <table>
+            <tr>
+                <td>Percentage:</td>
+                <td id="percentage-result"></td>
+            </tr>
+            <tr>
+                <td>Grade:</td>
+                <td id="grade-result"></td>
+            </tr>
+        </table>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.getElementById('cal-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get input values
+            let obtainedMarks = parseFloat(document.getElementById('obtain-marks').value);
+            let totalMarks = parseFloat(document.getElementById('total-marks').value);
+
+            // Validate input
+            if (!isNaN(obtainedMarks) && !isNaN(totalMarks) && totalMarks > 0) {
+                let percentage = (obtainedMarks / totalMarks) * 100;
+                let grade;
+
+                // Determine grade based on percentage
+                switch (true) {
+                    case (percentage >= 80):
+                        grade = 'A1';
+                        break;
+                    case (percentage >= 70):
+                        grade = 'A';
+                        break;
+                    case (percentage >= 60):
+                        grade = 'B';
+                        break;
+                    case (percentage >= 50):
+                        grade = 'C';
+                        break;
+                    default:
+                        grade = 'Fail / Try Again';
+                }
+
+                // Display results
+                document.getElementById('percentage-result').textContent = `${percentage.toFixed(2)}%`;
+                document.getElementById('grade-result').textContent = grade;
+                document.getElementById('result').textContent = ''; // Clear any error messages
+            } else {
+                // Handle invalid input
+                document.getElementById('result').textContent = 'Please enter valid numbers.';
+                document.getElementById('percentage-result').textContent = '';
+                document.getElementById('grade-result').textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
